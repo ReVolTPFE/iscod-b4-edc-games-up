@@ -1,6 +1,6 @@
-package com.gamesUP.gamesUP.model;
+package com.gamesup.api.model;
 
-public class PurchaseLine {
+public class OrderLine {
 	
 	private int id;
     private int utilisateurId;

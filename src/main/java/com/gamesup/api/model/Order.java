@@ -1,12 +1,12 @@
-package com.gamesUP.gamesUP.model;
+package com.gamesup.api.model;
 
 import java.util.Date;
 import java.util.List;
 
-public class Purchase {
+public class Order {
 
 	
-	List<PurchaseLine> line;
+	List<OrderLine> line;
 	Date date;
 	boolean paid;
 	boolean delivered;
