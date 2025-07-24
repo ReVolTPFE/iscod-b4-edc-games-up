@@ -25,6 +25,8 @@ classDiagram
         - id : int
         - date : date
         - status : int
+        - totalPrice : float
+        - shippingAddress : string
         - user : User
     }
 
@@ -51,6 +53,8 @@ classDiagram
 
     class User {
         - id : int
+        - email : string
+        - password : string
         - name : string
         - role : int
     }
