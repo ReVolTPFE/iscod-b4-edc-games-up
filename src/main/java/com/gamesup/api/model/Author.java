@@ -1,13 +1,25 @@
 package com.gamesup.api.model;
 
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@ToString
+@Entity
 public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Long id;
-    
-    public String name;
-    
-    public List<Game> games;
+    @Column(nullable = false)
+    private String name;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Game> games = new HashSet<>();
 }
