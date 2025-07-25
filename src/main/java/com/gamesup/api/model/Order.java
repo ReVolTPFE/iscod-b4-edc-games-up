@@ -8,13 +8,13 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "orders") // "orders" is used as the table name to avoid conflict with SQL reserved keywords
 public class Order {
 	@Id
