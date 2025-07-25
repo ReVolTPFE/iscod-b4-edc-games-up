@@ -4,8 +4,10 @@ import com.gamesup.api.dto.LoginInputDto;
 import com.gamesup.api.dto.LoginOutputDto;
 import com.gamesup.api.dto.RegisterInputDto;
 import com.gamesup.api.enumeration.Role;
+import com.gamesup.api.exception.HttpConflictException;
 import com.gamesup.api.model.User;
 import com.gamesup.api.repository.UserRepository;
+import com.gamesup.api.response.ApiResponse;
 import com.gamesup.api.security.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -37,10 +39,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody RegisterInputDto dto) {
+    public ResponseEntity<ApiResponse<LoginOutputDto>> register(@Valid @RequestBody RegisterInputDto dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Error: This email is already registered");
+            throw new HttpConflictException("Error: This email is already registered");
         }
 
         User user = new User();
@@ -48,21 +49,27 @@ public class AuthController {
         user.setName(dto.getName());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(Role.CLIENT);
-
         userRepository.save(user);
+
+        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        LoginOutputDto loginData = new LoginOutputDto(token, user.getEmail(), user.getRole().name());
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("User registered successfully");
+                .body(new ApiResponse<>(HttpStatus.CREATED.value(), "User registered and logged in successfully", loginData));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginOutputDto> login(@Valid @RequestBody LoginInputDto dto) {
+    public ResponseEntity<ApiResponse<LoginOutputDto>> login(@Valid @RequestBody LoginInputDto dto) {
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
         );
 
         User user = userRepository.findByEmail(dto.getEmail()).orElseThrow();
         String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        LoginOutputDto loginData = new LoginOutputDto(token, user.getEmail(), user.getRole().name());
 
-        return ResponseEntity.ok(new LoginOutputDto(token, user.getEmail(), user.getRole().name()));
+        return ResponseEntity.ok(
+                new ApiResponse<>(HttpStatus.OK.value(), "Login successful", loginData)
+        );
     }
 }
