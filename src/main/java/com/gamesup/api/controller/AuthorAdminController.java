@@ -1,4 +1,4 @@
-package com.gamesup.api.controller.author;
+package com.gamesup.api.controller;
 
 import com.gamesup.api.dto.author.AuthorDto;
 import com.gamesup.api.dto.author.CreateAuthorDto;
