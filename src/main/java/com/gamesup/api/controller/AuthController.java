@@ -51,7 +51,7 @@ public class AuthController {
         user.setRole(Role.CLIENT);
         userRepository.save(user);
 
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        String token = jwtService.generateToken(user.getId(), user.getEmail(), user.getRole().name());
         LoginOutputDto loginData = new LoginOutputDto(token, user.getEmail(), user.getRole().name());
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -65,7 +65,7 @@ public class AuthController {
         );
 
         User user = userRepository.findByEmail(dto.getEmail()).orElseThrow();
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        String token = jwtService.generateToken(user.getId(), user.getEmail(), user.getRole().name());
         LoginOutputDto loginData = new LoginOutputDto(token, user.getEmail(), user.getRole().name());
 
         return ResponseEntity.ok(
