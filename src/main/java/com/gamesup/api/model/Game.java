@@ -45,4 +45,8 @@ public class Game {
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet<>();
+
+    public Game(String name) {
+        this.name = name;
+    }
 }

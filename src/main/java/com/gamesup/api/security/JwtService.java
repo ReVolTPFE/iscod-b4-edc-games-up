@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class JwtService {
     private final String SECRET = "superSecretKeyForGamesUPJWT123456789";
-    private final long EXPIRATION_TIME = 86400000; // 24h
+    private final int EXPIRATION_TIME = 86400000; // 24h
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());

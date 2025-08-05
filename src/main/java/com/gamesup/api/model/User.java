@@ -36,4 +36,8 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
+
+    public User(Long id) {
+        this.id = id;
+    }
 }
