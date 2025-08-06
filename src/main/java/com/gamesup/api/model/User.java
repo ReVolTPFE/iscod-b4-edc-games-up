@@ -40,4 +40,8 @@ public class User {
     public User(Long id) {
         this.id = id;
     }
+
+    public boolean isAdmin() {
+        return this.role == Role.ADMIN;
+    }
 }
