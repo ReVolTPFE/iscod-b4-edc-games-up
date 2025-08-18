@@ -30,7 +30,7 @@ services:
       - db
     volumes:
       - ./src:/app/src
-  rec-api:
+  recommendations-api:
     build:
       context: ./python-api
       dockerfile: Dockerfile
