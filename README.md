@@ -64,7 +64,7 @@ mvn clean verify
 target/site/jacoco/index.html
 ```
 
-### Couverture de code mesurée :
+### Couverture de code mesurée (API Python non incluse) :
 
 ![JaCoCo Coverage](./docs/code-coverage.png)
 
@@ -83,4 +83,12 @@ target/site/jacoco/index.html
 
 ## Diagrammes du projet
 
-Voir `docs/diagrams` pour les différents diagrammes UML.
+Voir `docs/diagrams` pour les différents diagrammes UML. Ils sont disponibles au format Mermaid UML via fichiers markdown ou en PNG directement.
+
+## Explications du projet (bonnes/mauvaises pratiques, cheminement de création, API Python ML)
+
+Voir `docs/explications-travail-projet.md` pour les explications détaillées sur le respect des bonnes pratiques, le cheminement de création du projet et l'implémentation de l'API Python de recommandations ML.
+
+## Collection Postman
+
+Voir `docs/EDC-B4.postman_collection.json` pour la collection Postman contenant tous les endpoints des APIs Spring et Python.
